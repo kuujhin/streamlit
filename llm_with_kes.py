@@ -51,16 +51,22 @@ def get_kes_chain():
 def get_kes_response(user_message):
     if(user_message == '김은서'):
         tax_chain = get_kes_chain()
+        ai_response = tax_chain.stream(
+            {"question": user_message},
+            config={
+                "configurable": {"session_id": "abc123"}
+            },
+        )
+        return ai_response
     else:
         dictionary_chain = get_dictionary_chain()
         qa_chain = get_qa_chain()
         tax_chain = {"input": dictionary_chain} | qa_chain
 
-    ai_response = tax_chain.stream(
-        {"question": user_message},
-        config={
-            "configurable": {"session_id": "abc123"}
-        },
-    )
-
-    return ai_response
+        ai_response = tax_chain.stream(
+           {"question": user_message},
+           config={
+                "configurable": {"session_id": "abc123"}
+            },
+        )
+        return ai_response
