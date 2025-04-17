@@ -85,12 +85,15 @@ def get_rag_chain():
         examples=answer_examples,
     )
 
-    qa_system_prompt = """You are an assistant for question-answering tasks. \
-    Use the following pieces of retrieved context to answer the question. \
-    If you don't know the answer, just say that you don't know. \
-    Use three sentences maximum and keep the answer concise.\
-
-    {context}"""
+    qa_system_prompt = (
+        "당신은 소득세법 전문가입니다. 사용자의 소득세법에 관한 질문에 답변해주세요"
+        "아래에 제공된 문서를 활용해서 답변해주시고"
+        "답변을 알 수 없다면 모른다고 답변해주세요"
+        "답변을 제공할 때는 소득세법 (XX조)에 따르면 이라고 시작하면서 답변해주시고"
+        "2-3 문장정도의 짧은 내용의 답변을 원합니다"
+        "\n\n"
+        "{context}"
+    )
     
     qa_prompt = ChatPromptTemplate.from_messages(
         [
